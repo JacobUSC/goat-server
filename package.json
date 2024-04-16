@@ -1,0 +1,27 @@
+{
+  "name": "goat-server",
+  "version": "1.0.0",
+  "description": "backend for goat website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JacobUSC/goat-server.git"
+  },
+  "author": "Jacob Russell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JacobUSC/goat-server/issues"
+  },
+  "homepage": "https://github.com/JacobUSC/goat-server#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "joi": "^17.12.3",
+    "mongoose": "^8.3.1",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.0"
+  }
+}
