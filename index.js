@@ -66,8 +66,8 @@ app.post("/api/decks", async (req, res) => {
 		email: req.body.email,
 		featuredCard: req.body.featuredCard,
 		description: req.body.description,
-		deck: req.body.deck.split(","),
-		extra: req.body.extra.split(",")
+		deck: req.body.deck,
+		extra: req.body.extra
 	});
 	await deck.save();
 	res.send(deck);
