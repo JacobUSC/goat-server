@@ -34,13 +34,6 @@ const deckSchema = new mongoose.Schema({
 
 const Deck = mongoose.model("Deck", deckSchema);
 
-const getIDs = async () => {
-	const cardsJSON = await getCards();
-	cardsJSON.data.forEach((card) => {
-		cardIDList.push(card.id);
-	});
-};
-
 const validateDeck = (deck) => {
 	const schema = Joi.object({
 		_id: Joi.allow(""),
@@ -96,5 +89,3 @@ app.delete("/api/decks/:id", async (req, res) => {
 app.listen(3000, () => {
 	console.log("listening");
 });
-
-getIDs();
