@@ -80,7 +80,7 @@ app.get("/api/decks", async (req, res) => {
 
 app.post("/api/decks", async (req, res) => {
 	console.log("Starting Post");
-	console.log(...req.body);
+	console.log(req.body);
 	const result = validateDeck(req.body);
 	if (result.error) {
 		res.status(400).send(result.error.details[0].message);
