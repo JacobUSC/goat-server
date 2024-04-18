@@ -3,12 +3,6 @@
  * Description: goat website server
  */
 
-/**
- * Card list is obtained from the Yu-Gi-Oh! API by YGOPRODeck
- * Using API v7
- * https://ygoprodeck.com/api-guide/
- */
-
 const express = require("express");
 const app = express();
 const Joi = require("joi");
@@ -39,19 +33,6 @@ const deckSchema = new mongoose.Schema({
 });
 
 const Deck = mongoose.model("Deck", deckSchema);
-
-//get card ids for data validation
-const cardIDList = [];
-
-const getCards = async () => {
-	const url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?&enddate=2005-09-30&dateregion=tcg";
-	try {
-		const response = await fetch(url);
-		return response.json();
-	} catch (error) {
-		console.log(error);
-	}
-};
 
 const getIDs = async () => {
 	const cardsJSON = await getCards();
@@ -85,24 +66,6 @@ app.post("/api/decks", async (req, res) => {
 	if (result.error) {
 		res.status(400).send(result.error.details[0].message);
 		return;
-	}
-	if (!cardIDList.includes(req.body.featuredCard)) {
-		res.status(400).send("Invalid Featured Card");
-		return;
-	}
-	req.body.deck.forEach((id) => {
-		if (!cardIDList.includes(id)) {
-			res.status(400).send("Invalid Deck Card");
-			return;
-		}
-	});
-	if (!(req.body.extra === undefined) && !(req.body.extra == 0)) {
-		req.body.forEach((id) => {
-			if (!cardIDList.includes(id)) {
-				res.status(400).send("Invalid Fusion Deck Card");
-				return;
-			}
-		});
 	}
 	const deck = new Deck ({
 		deckName: req.body.deckName,
