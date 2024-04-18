@@ -19,7 +19,6 @@ const cors = require("cors");
 app.use(cors());
 const mongoose = require("mongoose");
 
-//update to new database
 mongoose
   .connect("mongodb+srv://jrr18:Agb891pEWc9zm5z6@assignment16.rfydwdh.mongodb.net/?retryWrites=true&w=majority&appName=assignment16")
   .then(() => {
@@ -80,6 +79,8 @@ app.get("/api/decks", async (req, res) => {
 });
 
 app.post("/api/decks", async (req, res) => {
+	console.log("Starting Post");
+	console.log(...req.body);
 	const result = validateDeck(req.body);
 	if (result.error) {
 		res.status(400).send(result.error.details[0].message);
@@ -114,12 +115,15 @@ app.post("/api/decks", async (req, res) => {
 	});
 	await deck.save();
 	res.send(deck);
+	console.log("Successfully Posted");
 });
 
 app.put("/api/decks/:id", async (req, res) => {
+	console.log("Starting Put");
 	const result = validateDeck(req.body);
 	// additional testing todo
 	res.send(await Deck.updateOne({_id:req.params.id},updateFields));
+	console.log("Successfully Put");
 });
 
 app.delete("/api/decks/:id", async (req, res) => {
