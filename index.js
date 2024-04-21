@@ -10,7 +10,14 @@ app.use(express.static("public"));
 app.use("/uploads", express.static("uploads"));
 app.use(express.json());
 const cors = require("cors");
-app.use(cors());
+const corsOptions = {
+	"origin": "https://jacobusc.github.io",
+	"methods": "GET,PUT,POST,DELETE",
+	"preflightContinue": false,
+  	"optionsSuccessStatus": 204
+};
+app.use(cors(corsOptions));
+
 const mongoose = require("mongoose");
 
 mongoose
