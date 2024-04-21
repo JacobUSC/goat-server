@@ -14,7 +14,7 @@ const corsOptions = {
 	origin: "https://jacobusc.github.io",
 	methods: ["GET","PUT","POST","DELETE"],
 	preflightContinue: false,
-  	optionsSuccessStatus: 204
+  	optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
 
@@ -84,7 +84,10 @@ app.post("/api/decks", async (req, res) => {
 app.put("/api/decks/:id", async (req, res) => {
 	console.log("Starting Put");
 	const result = validateDeck(req.body);
-	// additional testing todo
+	if (result.error) {
+		res.status(400).send(result.error.details[0].message);
+		return;
+	}
 	res.send(await Deck.updateOne({_id:req.params.id},updateFields));
 	console.log("Successfully Put");
 });
