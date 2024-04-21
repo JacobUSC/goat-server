@@ -85,12 +85,12 @@ app.put("/api/decks/:id", async (req, res) => {
 	console.log("Starting Put");
 	const result = validateDeck(req.body);
 	// additional testing todo
-	res.send(await Deck.updateOne({_id:req.body.id},updateFields));
+	res.send(await Deck.updateOne({_id:req.params.id},updateFields));
 	console.log("Successfully Put");
 });
 
 app.delete("/api/decks/:id", async (req, res) => {
-	res.send(await Deck.findByIdAndDelete(req.body.id));
+	res.send(await Deck.findByIdAndDelete(req.params.id));
 });
 
 app.listen(3000, () => {
