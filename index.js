@@ -14,7 +14,7 @@ const corsOptions = {
 	origin: "https://jacobusc.github.io",
 	methods: ["GET","PUT","POST","DELETE"],
 	preflightContinue: false,
-  	optionsSuccessStatus: 200
+  	optionsSuccessStatus: 204
 };
 app.use(cors(corsOptions));
 
@@ -93,6 +93,7 @@ app.put("/api/decks/:id", async (req, res) => {
 });
 
 app.delete("/api/decks/:id", async (req, res) => {
+	console.log("Deleting Deck");
 	res.send(await Deck.findByIdAndDelete(req.params.id));
 });
 
