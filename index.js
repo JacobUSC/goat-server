@@ -11,10 +11,10 @@ app.use("/uploads", express.static("uploads"));
 app.use(express.json());
 const cors = require("cors");
 const corsOptions = {
-	"origin": "https://jacobusc.github.io",
-	"methods": "GET,PUT,POST,DELETE",
-	"preflightContinue": false,
-  	"optionsSuccessStatus": 204
+	origin: "https://jacobusc.github.io",
+	methods: ["GET","PUT","POST","DELETE"],
+	preflightContinue: false,
+  	optionsSuccessStatus: 204
 };
 app.use(cors(corsOptions));
 
@@ -48,7 +48,7 @@ const validateDeck = (deck) => {
 		userName: Joi.string().min(3).max(20).required(),
 		email: Joi.string().email().required(),
 		featuredCard: Joi.number().required(),
-		description: Joi.string().min(3).max(200),
+		description: Joi.string().min(3).max(2000),
 		deck: Joi.array().min(40).max(100).required(),
 		extra: Joi.array().min(0).max(100)
 	});
@@ -85,12 +85,12 @@ app.put("/api/decks/:id", async (req, res) => {
 	console.log("Starting Put");
 	const result = validateDeck(req.body);
 	// additional testing todo
-	res.send(await Deck.updateOne({_id:req.params.id},updateFields));
+	res.send(await Deck.updateOne({_id:req.body.id},updateFields));
 	console.log("Successfully Put");
 });
 
 app.delete("/api/decks/:id", async (req, res) => {
-	res.send(await Deck.findByIdAndDelete(req.params.id));
+	res.send(await Deck.findByIdAndDelete(req.body.id));
 });
 
 app.listen(3000, () => {
