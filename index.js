@@ -101,7 +101,7 @@ app.put("/api/decks/:id", async (req, res) => {
 		deck: req.body.deck,
 		extra: req.body.extra
 	};
-	res.send(await Deck.updateOne({_id:req.params.id},updateFields));
+	res.send(await Deck.updateOne({_id:id},updateFields));
 	console.log("Successfully Put");
 });
 
