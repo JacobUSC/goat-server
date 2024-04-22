@@ -92,6 +92,15 @@ app.put("/api/decks/:id", async (req, res) => {
 		res.status(400).send(result.error.details[0].message);
 		return;
 	}
+	const updateFields = {
+		deckName: req.body.deckName,
+		userName: req.body.userName,
+		email: req.body.email,
+		featuredCard: req.body.featuredCard,
+		description: req.body.description,
+		deck: req.body.deck,
+		extra: req.body.extra
+	};
 	res.send(await Deck.updateOne({_id:req.params.id},updateFields));
 	console.log("Successfully Put");
 });
