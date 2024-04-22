@@ -86,7 +86,6 @@ app.post("/api/decks", async (req, res) => {
 
 app.put("/api/decks/:id", async (req, res) => {
 	console.log("Starting Put");
-	console.log(req.body);
 	const result = validateDeck(req.body);
 	if (result.error) {
 		res.status(400).send(result.error.details[0].message);
@@ -101,7 +100,7 @@ app.put("/api/decks/:id", async (req, res) => {
 		deck: req.body.deck,
 		extra: req.body.extra
 	};
-	res.send(await Deck.updateOne({_id:id},updateFields));
+	res.send(await Deck.updateOne({_id:req.params.id},updateFields));
 	console.log("Successfully Put");
 });
 
