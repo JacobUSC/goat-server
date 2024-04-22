@@ -59,6 +59,10 @@ app.get("/api/decks", async (req, res) => {
 	res.send(await Deck.find());
 });
 
+app.get("/api/decks/:id", async (req, res) => {
+	res.send(await Deck.findById(req.params.id));
+});
+
 app.post("/api/decks", async (req, res) => {
 	console.log("Starting Post");
 	console.log(req.body);
